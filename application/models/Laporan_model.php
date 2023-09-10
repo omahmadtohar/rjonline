@@ -39,4 +39,24 @@ class Laporan_model extends CI_Model {
         $this->db->delete('laporan_kasus');
         return true;
     }
+
+   public function getGrafik()
+    {
+        $this->db->select('COUNT(laporan_kasus.nomor_lp) as value, MONTHNAME(laporan_kasus.tanggal_laporan) as label');
+        $this->db->from('laporan_kasus');
+        $this->db->group_by('MONTHNAME(laporan_kasus.tanggal_laporan)'); // Menambahkan GROUP BY di sini
+        $query = $this->db->get()->result();
+        return $query;
+    }
+
+    public function grafikChart()
+    {
+        $this->db->select("YEAR(tanggal_laporan) as year, COUNT(*) as count");
+        $this->db->from('laporan_kasus');
+        $this->db->group_by("YEAR(tanggal_laporan)");
+        $query = $this->db->get()->result();
+        return $query;
+    }
+
+
 }

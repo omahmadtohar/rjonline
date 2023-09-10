@@ -5,16 +5,10 @@ class Laporan extends CI_Controller {
         $this->load->model('Laporan_model');
     }
 
-    // Fungsi untuk menampilkan daftar laporan kasus (Read)
-    public function index() {
-        $this->load->view('header');
-        $this->load->view('menu');
-        $this->load->view('index');
-        $this->load->view('footer');
-    }
-
     public function laporanKasus() {
         $data['laporanKasus'] = $this->Laporan_model->get_laporan();
+        $data['donat']        = $this->Laporan_model->getGrafik();
+        $data['lineChart']        = $this->Laporan_model->grafikChart();
         $this->load->view('header');
         $this->load->view('menu');
         $this->load->view('laporanKasus/v_laporanKasus', $data);
@@ -84,4 +78,5 @@ class Laporan extends CI_Controller {
 
         redirect('laporan/laporanKasus');
     }
+
 }

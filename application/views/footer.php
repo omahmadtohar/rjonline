@@ -11,6 +11,9 @@
 <script src="<?php echo base_url();?>assets/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="<?php echo base_url();?>assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- Morris.js charts -->
+<script src="<?php echo base_url();?>assets/bower_components/raphael/raphael.min.js"></script>
+<script src="<?php echo base_url();?>assets/bower_components/morris.js/morris.min.js"></script>
 <!-- DataTables -->
 <script src="<?php echo base_url();?>assets/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="<?php echo base_url();?>assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
@@ -155,7 +158,30 @@ $(document).ready(function() {
 });
 </script>
 
+<script>
+    $(document).ready(function () {
+        var donut = new Morris.Donut({
+            element: 'sales-chart',
+            resize: true,
+            colors: ["#3c8dbc", "#f56954", "#00a65a"],
+            data: <?php echo json_encode($donat); ?>,
+            hideHover: 'auto'
+        });
 
+
+      var line = new Morris.Line({
+          element: 'line-chart',
+          resize: true,
+          data: <?php echo json_encode($lineChart); ?>,
+          xkey: 'year', // Kunci (key) untuk sumbu X (tahun)
+          ykeys: ['count'], // Kunci (key) untuk sumbu Y (jumlah data)
+          labels: ['Jumlah'], // Label untuk sumbu Y
+          lineColors: ['#3c8dbc'],
+          hideHover: 'auto'
+      });
+
+    });
+</script>
 
 </body>
 </html>
